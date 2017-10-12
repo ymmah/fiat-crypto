@@ -15,6 +15,8 @@ Inductive symbolic_op :=
 | SAdd
 | SSub
 | SMul
+| SDiv
+| SMod
 | SShl
 | SShr
 | SLand
@@ -42,6 +44,10 @@ Definition symbolic_op_leb (x y : symbolic_op) : bool
      | _, SSub => false
      | SMul, _ => true
      | _, SMul => false
+     | SDiv, _ => true
+     | _, SDiv => false
+     | SMod, _ => true
+     | _, SMod => false
      | SShl, _ => true
      | _, SShl => false
      | SShr, _ => true
@@ -78,6 +84,8 @@ Definition symbolize_op s d (opc : op s d) : symbolic_op
      | Add T1 T2 Tout => SAdd
      | Sub T1 T2 Tout => SSub
      | Mul T1 T2 Tout => SMul
+     | Div T1 T2 Tout => SDiv
+     | Mod T1 T2 Tout => SMod
      | Shl T1 T2 Tout => SShl
      | Shr T1 T2 Tout => SShr
      | Land T1 T2 Tout => SLand
@@ -98,6 +106,8 @@ Definition denote_symbolic_op s d (opc : symbolic_op) : option (op s d)
      | SAdd, Prod (Tbase _) (Tbase _), Tbase _ => Some (Add _ _ _)
      | SSub, Prod (Tbase _) (Tbase _), Tbase _ => Some (Sub _ _ _)
      | SMul, Prod (Tbase _) (Tbase _), Tbase _ => Some (Mul _ _ _)
+     | SDiv, Prod (Tbase _) (Tbase _), Tbase _ => Some (Div _ _ _)
+     | SMod, Prod (Tbase _) (Tbase _), Tbase _ => Some (Mod _ _ _)
      | SShl, Prod (Tbase _) (Tbase _), Tbase _ => Some (Shl _ _ _)
      | SShr, Prod (Tbase _) (Tbase _), Tbase _ => Some (Shr _ _ _)
      | SLand, Prod (Tbase _) (Tbase _), Tbase _ => Some (Land _ _ _)
@@ -116,6 +126,8 @@ Definition denote_symbolic_op s d (opc : symbolic_op) : option (op s d)
      | SAdd, _, _
      | SSub, _, _
      | SMul, _, _
+     | SDiv, _, _
+     | SMod, _, _
      | SShl, _, _
      | SShr, _, _
      | SLand, _, _
@@ -186,6 +198,8 @@ Definition normalize_symbolic_expr_mod_c (opc : symbolic_op) (args : symbolic_ex
   := match opc with
      | SAdd
      | SMul
+     | SDiv
+     | SMod
      | SLand
      | SLor
        => let ls := symbolic_op_args_to_list Unit opc args in

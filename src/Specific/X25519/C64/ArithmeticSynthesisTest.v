@@ -31,7 +31,7 @@ Section Ops.
 
   Definition a24 := P.compute P.a24.
   Definition coef_div_modulus : nat := P.compute P.coef_div_modulus.
-  (* These definitions are inferred from those above *)
+    (* These definitions are inferred from those above *)
   Definition m := Eval vm_compute in Z.to_pos (s - Associational.eval c). (* modulus *)
   Section wt.
     Import QArith Qround.
@@ -211,6 +211,7 @@ Section Ops.
    cbv[mod_eq]; apply f_equal2;
      [  | reflexivity ]; apply f_equal.
    cbv - [runtime_opp runtime_add runtime_mul runtime_shr runtime_and Let_In Z.add_get_carry Z.zselect].
+   cbv [Z.add_get_carry Z.add_with_get_carry Z.add_with_carry Z.get_carry].
    reflexivity.
   Defined.
 

@@ -67,6 +67,8 @@ Module Import Bounds.
       := truncation_bounds (f x y z w).
     Definition add : t -> t -> t := t_map2 Z.add.
     Definition sub : t -> t -> t := t_map2 Z.sub.
+    Definition div : t -> t -> t := t_map2 Z.div.
+    Definition modulo : t -> t -> t. Admitted. (* FIXME: Z.mod_small, otherwise output between zero and modulus *)
     Definition mul : t -> t -> t := t_map2 Z.mul.
     Definition mul' : t -> t -> t := t_map2' Z.mul.
     Definition shl : t -> t -> t := t_map2 Z.shiftl.
@@ -210,6 +212,8 @@ Module Import Bounds.
        | Add _ _ T => fun xy => add (bit_width_of_base_type T) (fst xy) (snd xy)
        | Sub _ _ T => fun xy => sub (bit_width_of_base_type T) (fst xy) (snd xy)
        | Mul _ _ T => fun xy => mul (bit_width_of_base_type T) (fst xy) (snd xy)
+       | Div _ _ T => fun xy => div (bit_width_of_base_type T) (fst xy) (snd xy)
+       | Mod _ _ T => fun xy => modulo (bit_width_of_base_type T) (fst xy) (snd xy)
        | Shl _ _ T => fun xy => shl (bit_width_of_base_type T) (fst xy) (snd xy)
        | Shr _ _ T => fun xy => shr (bit_width_of_base_type T) (fst xy) (snd xy)
        | Land _ _ T => fun xy => land (bit_width_of_base_type T) (fst xy) (snd xy)

@@ -23,6 +23,8 @@ Inductive op : flat_type base_type -> flat_type base_type -> Type :=
 | Add T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
 | Sub T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
 | Mul T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
+| Div T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
+| Mod T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
 | Shl T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
 | Shr T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
 | Land T1 T2 Tout : op (Tbase T1 * Tbase T2) (Tbase Tout)
@@ -82,6 +84,8 @@ Definition Zinterp_op src dst (f : op src dst)
      | Add _ _ _ => fun xy => fst xy + snd xy
      | Sub _ _ _ => fun xy => fst xy - snd xy
      | Mul _ _ _ => fun xy => fst xy * snd xy
+     | Div _ _ _ => fun xy => fst xy / snd xy
+     | Mod _ _ _ => fun xy => fst xy mod snd xy
      | Shl _ _ _ => fun xy => Z.shiftl (fst xy) (snd xy)
      | Shr _ _ _ => fun xy => Z.shiftr (fst xy) (snd xy)
      | Land _ _ _ => fun xy => Z.land (fst xy) (snd xy)

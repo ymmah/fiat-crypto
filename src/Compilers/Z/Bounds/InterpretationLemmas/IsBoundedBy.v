@@ -321,6 +321,8 @@ Proof.
     | apply upper_lor_and_bounds_Proper ].
 Qed.
 
+Local Instance Proper_div_le : Proper (Z.le ==> Z.le --> Z.le) Z.div. Admitted.
+
 Local Arguments N.ldiff : simpl never.
 Local Arguments Z.pow : simpl never.
 Local Arguments Z.add !_ !_.
@@ -379,6 +381,8 @@ Proof.
   { apply (@monotone_four_corners true true _ _); split; auto. }
   { apply (@monotone_four_corners true false _ _); split; auto. }
   { handle_mul. }
+  { apply (@monotone_four_corners true false Z.div _); split; auto. }
+  { (* FIXME *) }
   { apply monotone_four_corners_genb; try (split; auto);
       [ eexists; apply Z.shiftl_le_Proper1
       | exists true; apply Z.shiftl_le_Proper2 ]. }

@@ -73,6 +73,8 @@ Definition genericize_op {var' src dst} (opc : op src dst) {f}
      | Add _ _ _ => fun _ _ => Add _ _ _
      | Sub _ _ _ => fun _ _ => Sub _ _ _
      | Mul _ _ _ => fun _ _ => Mul _ _ _
+     | Div _ _ _ => fun _ _ => Div _ _ _
+     | Mod _ _ _ => fun _ _ => Mod _ _ _
      | Shl _ _ _ => fun _ _ => Shl _ _ _
      | Shr _ _ _ => fun _ _ => Shr _ _ _
      | Land _ _ _ => fun _ _ => Land _ _ _

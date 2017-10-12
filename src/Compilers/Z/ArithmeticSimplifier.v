@@ -590,6 +590,8 @@ Section language.
                  else Op opc args
          | Sub _ _ _ as opc
          | Mul _ _ _ as opc
+         | Div _ _ _ as opc
+         | Mod _ _ _ as opc
          | Shl _ _ _ as opc
          | Shr _ _ _ as opc
          | Land _ _ _ as opc

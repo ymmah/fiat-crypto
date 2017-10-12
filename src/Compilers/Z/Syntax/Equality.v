@@ -34,6 +34,8 @@ Definition op_beq_hetero {t1 tR t1' tR'} (f : op t1 tR) (g : op t1' tR') : bool
      | Add T1 T2 Tout, Add T1' T2' Tout'
      | Sub T1 T2 Tout, Sub T1' T2' Tout'
      | Mul T1 T2 Tout, Mul T1' T2' Tout'
+     | Div T1 T2 Tout, Div T1' T2' Tout'
+     | Mod T1 T2 Tout, Mod T1' T2' Tout'
      | Shl T1 T2 Tout, Shl T1' T2' Tout'
      | Shr T1 T2 Tout, Shr T1' T2' Tout'
      | Land T1 T2 Tout, Land T1' T2' Tout'
@@ -59,6 +61,8 @@ Definition op_beq_hetero {t1 tR t1' tR'} (f : op t1 tR) (g : op t1' tR') : bool
      | Add _ _ _, _
      | Sub _ _ _, _
      | Mul _ _ _, _
+     | Div _ _ _, _
+     | Mod _ _ _, _
      | Shl _ _ _, _
      | Shr _ _ _, _
      | Land _ _ _, _
