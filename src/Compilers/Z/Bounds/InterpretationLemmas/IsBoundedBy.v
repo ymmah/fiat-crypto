@@ -382,7 +382,12 @@ Proof.
   { apply (@monotone_four_corners true false _ _); split; auto. }
   { handle_mul. }
   { apply (@monotone_four_corners true false Z.div _); split; auto. }
-  { (* FIXME *) }
+  {
+    destruct (Z_dec' z0 0) as [[HH|HH]|].
+    { pose proof (Z.mod_neg_bound z z0 HH); lia. }
+    { pose proof (Z.mod_pos_bound z z0 HH); lia. }
+    { subst; rewrite Zmod_0_r; lia. }
+  }
   { apply monotone_four_corners_genb; try (split; auto);
       [ eexists; apply Z.shiftl_le_Proper1
       | exists true; apply Z.shiftl_le_Proper2 ]. }

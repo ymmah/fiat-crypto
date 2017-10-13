@@ -231,6 +231,16 @@ Proof.
                          => rewrite (Z.div_small x m) by Z.rewrite_mod_small_solver
                        end
                      | progress pull_Zmod ].
+  { rewrite Z.shiftr_opp_r, Z.shiftl_1_l in Heqb.
+    rewrite Z.shiftr_div_pow2, <-Heqb; trivial; [].
+    destruct (Z_lt_le_dec (Z.log2 v) 0); trivial; [].
+    rewrite Z.pow_neg_r in Heqb by assumption; subst v.
+    change (Z.log2 0) with 0%Z in *; omega. }
+  { rewrite Z.shiftr_opp_r, Z.shiftl_1_l in Heqb.
+    rewrite Z.land_ones, <-Heqb; trivial; [].
+    destruct (Z_lt_le_dec (Z.log2 v) 0); trivial; [].
+    rewrite Z.pow_neg_r in Heqb by assumption; subst v.
+    change (Z.log2 0) with 0%Z in *; omega. }
 Qed.
 
 Hint Rewrite @InterpSimplifyArith : reflective_interp.

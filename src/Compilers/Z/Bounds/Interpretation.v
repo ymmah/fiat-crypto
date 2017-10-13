@@ -68,7 +68,7 @@ Module Import Bounds.
     Definition add : t -> t -> t := t_map2 Z.add.
     Definition sub : t -> t -> t := t_map2 Z.sub.
     Definition div : t -> t -> t := t_map2 Z.div.
-    Definition modulo : t -> t -> t. Admitted. (* FIXME: Z.mod_small, otherwise output between zero and modulus *)
+    Definition modulo : t -> t -> t := fun x m => truncation_bounds {| lower := Z.min 0 (lower m); upper := Z.max 0 (upper m)|}.
     Definition mul : t -> t -> t := t_map2 Z.mul.
     Definition mul' : t -> t -> t := t_map2' Z.mul.
     Definition shl : t -> t -> t := t_map2 Z.shiftl.

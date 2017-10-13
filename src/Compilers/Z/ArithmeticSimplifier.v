@@ -186,6 +186,30 @@ Section language.
                            else Op opc args
                  | _ => Op opc args
                  end
+         | Div TZ TZ TZ as opc
+           => fun args
+              => match interp_as_expr_or_const args with
+                 | Some (const_of l, const_of r)
+                   => Op (OpConst (interp_op _ _ opc (l, r))) TT
+                 | Some (gen_expr e, const_of v)
+                   => let l := Z.log2 v in
+                      if (Z.eqb v (Z.shiftl 1 l)) then
+                        Op (Shr TZ TZ TZ) (Pair e (Op (OpConst l) TT))
+                      else Op opc args
+                 | _ => Op opc args
+                 end
+         | Mod TZ TZ TZ as opc
+           => fun args
+              => match interp_as_expr_or_const args with
+                 | Some (const_of l, const_of r)
+                   => Op (OpConst (interp_op _ _ opc (l, r))) TT
+                 | Some (gen_expr e, const_of v)
+                   => let l := Z.log2 v in
+                      if (Z.eqb v (Z.shiftl 1 l)) then
+                        Op (Land TZ TZ TZ) (Pair e (Op (OpConst (Z.ones l)) TT))
+                      else Op opc args
+                 | _ => Op opc args
+                 end
          | Shl TZ TZ TZ as opc
          | Shr TZ TZ TZ as opc
            => fun args
