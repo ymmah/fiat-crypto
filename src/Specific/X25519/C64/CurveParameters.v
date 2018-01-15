@@ -9,17 +9,17 @@ Base: 51
 Module Curve <: CurveParameters.
   Definition sz : nat := 5%nat.
   Definition bitwidth : Z := 64.
-  Definition s : Z := 2^255.
-  Definition c : list limb := [(1, 19)].
-  Definition carry_chain1 := Eval vm_compute in Some (seq 0 (pred sz)).
-  Definition carry_chain2 := Some [0;1]%nat.
+  Definition s : Z := 2^256.
+  Definition c : list limb := [(1, 2^32+977)].
+  Definition carry_chain1 := Some [0;1;2;3;4;0]%nat.
+  Definition carry_chain2 := Some [0;1;2;3;4;0]%nat.
 
   Definition a24 := 121665%Z.
   Definition coef_div_modulus : nat := 2. (* add 2*modulus before subtracting *)
 
   Definition mul_code : option (Z^sz -> Z^sz -> Z^sz)
     := Some (fun a b =>
-      (* Micro-optimized form from curve25519-donna-c64 by Adam Langley (Google) and Daniel Bernstein. See <https://github.com/agl/curve25519-donna/blob/master/LICENSE.md>. *)
+       (* Micro-optimized form from curve25519-donna-c64 by Adam Langley (Google) and Daniel Bernstein. See <https://github.com/agl/curve25519-donna/blob/master/LICENSE.md>. *)
       let '(r4, r3, r2, r1, r0) := a in
       let '(s4, s3, s2, s1, s0) := b in
       dlet t0  :=  r0 * s0 in
